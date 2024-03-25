@@ -11,6 +11,7 @@ interface AuthContextType {
   isVerified: boolean;
   isVerifyLoading: boolean;
   signOut: () => void;
+  reVerifyToken: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -18,7 +19,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { data: verifyData, isLoading: verifyLoading } = useVerifyToken();
+  const {
+    data: verifyData,
+    isLoading: verifyLoading,
+    refetch: reVerifyToken,
+  } = useVerifyToken();
 
   const [token, setToken] = useLocalStorage<IAuthToken | null>(
     process.env.NEXT_PUBLIC_TOKEN_KEY as string,
@@ -36,6 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     isVerifyLoading: verifyLoading,
     isVerified: !!isVerified,
     signOut,
+    reVerifyToken,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

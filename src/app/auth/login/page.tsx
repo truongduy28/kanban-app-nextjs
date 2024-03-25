@@ -11,7 +11,7 @@ import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 function LoginPage() {
   // API login to kanban system
   const { mutate, error, isPending, data } = useLogin();
-  const { setToken } = useAuth();
+  const { setToken, reVerifyToken } = useAuth();
 
   const [body, setBody] = useState({
     username: "",
@@ -27,7 +27,10 @@ function LoginPage() {
     e.preventDefault();
     mutate(body, {
       onError: (e) => console.log(e),
-      onSuccess: (data) => setToken(data),
+      onSuccess: (data) => {
+        setToken(data);
+        reVerifyToken();
+      },
     });
   };
 
