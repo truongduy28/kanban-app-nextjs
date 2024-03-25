@@ -1,6 +1,19 @@
-import React from "react";
+"use client";
+import { useAuth } from "@/providers/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const HomePage = () => {
+  const { isVerified } = useAuth();
+
+  const route = useRouter();
+
+  useEffect(() => {
+    if (!isVerified) {
+      route.push("/auth/login");
+    }
+  }, [isVerified, route]);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">

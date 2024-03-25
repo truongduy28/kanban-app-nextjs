@@ -1,9 +1,4 @@
-const getCognitoToken = async () => {
-  // const session = await auth.getSession();
-  // return {
-  //   accessToken: session.getAccessToken().getJwtToken(),
-  // };
-};
+import { IAuthToken } from "@/types/auth";
 
 /**
  *
@@ -11,11 +6,15 @@ const getCognitoToken = async () => {
  * @returns
  */
 const accessTokenConfig = async () => {
-  //   const { accessToken } = await getCognitoToken();
+  const storageToken = await localStorage.getItem(
+    process.env.NEXT_PUBLIC_TOKEN_KEY as string
+  );
+  const user = !storageToken ? null : JSON.parse(storageToken as string);
+
   const config = {
     headers: {
       "Content-Type": "application/json",
-      //   Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${(user as IAuthToken).token}`,
     },
   };
   return config;

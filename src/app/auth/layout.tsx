@@ -1,9 +1,22 @@
-import React, { FC } from "react";
+"use client";
+
+import { useAuth } from "@/providers/AuthContext";
+import { useRouter } from "next/navigation";
+import React, { FC, useEffect } from "react";
 
 interface Props {
   children: React.ReactNode;
 }
-const authLayout: FC<Props> = ({ children }) => {
+const AuthLayout: FC<Props> = ({ children }) => {
+  const { isVerified } = useAuth();
+
+  const route = useRouter();
+  useEffect(() => {
+    if (isVerified) {
+      route.push("/");
+    }
+  }, [isVerified, route]);
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -21,4 +34,4 @@ const authLayout: FC<Props> = ({ children }) => {
   );
 };
 
-export default authLayout;
+export default AuthLayout;

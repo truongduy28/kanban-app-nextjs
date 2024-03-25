@@ -1,5 +1,6 @@
 import { ILoginBody, ISignUpBody } from "@/types/auth";
 import { axiosClient } from "@/utils/axios";
+import accessTokenConfig from "@/utils/get-token";
 
 export const postLogin = async (body: ILoginBody): Promise<any> => {
   const res = await axiosClient.post(`/auth/login`, body);
@@ -7,17 +8,12 @@ export const postLogin = async (body: ILoginBody): Promise<any> => {
 };
 
 export const postSignUp = async (body: ISignUpBody): Promise<any> => {
-  const res = await axiosClient.post(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signup`,
-    { ...body }
-  );
+  const res = await axiosClient.post(`/auth/signup`, { ...body });
   return res;
 };
 
 export const postVerifyToken = async () => {
-  const res = await axiosClient.post(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/verify-token`,
-    undefined
-  );
+  const config = await accessTokenConfig();
+  const res = await axiosClient.post(`/auth/verify-token`, undefined, config);
   return res;
 };
