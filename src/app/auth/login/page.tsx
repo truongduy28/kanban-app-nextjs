@@ -7,6 +7,7 @@ import { useLogin } from "@/hooks/useAuthApi";
 import { useAuth } from "@/providers/AuthContext";
 import Link from "next/link";
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import toast from "react-hot-toast";
 
 function LoginPage() {
   // API login to kanban system
@@ -25,9 +26,11 @@ function LoginPage() {
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     mutate(body, {
       onError: (e) => console.log(e),
       onSuccess: (data) => {
+        toast.success("Login successfully!");
         setToken(data);
         reVerifyToken();
       },

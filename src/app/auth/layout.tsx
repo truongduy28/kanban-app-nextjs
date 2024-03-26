@@ -5,6 +5,7 @@ import OverpayLoading from "@/components/Loading/OverlayLoading";
 import { useAuth } from "@/providers/AuthContext";
 import { useRouter } from "next/navigation";
 import React, { FC, useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 interface Props {
   children: React.ReactNode;
@@ -28,6 +29,7 @@ const AuthLayout: FC<Props> = ({ children }) => {
           {children}
         </div>
       </div>
+      <Toaster />
     </section>
   );
 };
