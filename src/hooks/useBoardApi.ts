@@ -1,5 +1,6 @@
 import {
   getAllBoards,
+  getOneBoard,
   postCreateBoard,
   putUpdatePosition,
 } from "@/api/board.api";
@@ -22,5 +23,12 @@ export const useGetAllBoards = () => {
 export const useUpdatePosition = () => {
   return useMutation<any, any, BoardList>({
     mutationFn: (boards: BoardList) => putUpdatePosition(boards),
+  });
+};
+
+export const useGetOneBoard = (id: string) => {
+  return useQuery<any, any, any, string[]>({
+    queryKey: ["getOneBoard", id],
+    queryFn: () => getOneBoard(id) as any,
   });
 };

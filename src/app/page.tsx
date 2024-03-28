@@ -1,4 +1,5 @@
 "use client";
+import BoardContainer from "@/components/Board/BoardContainer";
 import OverlayLoading from "@/components/Loading/OverlayLoading";
 import SlideBar from "@/components/SlideBar/SideBar";
 import { useAuth } from "@/providers/AuthContext";
@@ -21,7 +22,7 @@ const HomePage = () => {
       {isVerifyLoading && <OverlayLoading />}
       <div className="w-full min-h-screen bg-gray-50">
         <SlideBar />
-        KANBAN
+        <BoardContainer />
       </div>
     </>
   );

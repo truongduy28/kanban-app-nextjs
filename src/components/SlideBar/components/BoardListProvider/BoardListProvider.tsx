@@ -5,7 +5,7 @@ interface Props {
 }
 
 const BoardListProvider: FC<Props> = ({ children }) => {
-  return <div className="flex-1 overflow-auto px-5 pt-3">{children}</div>;
+  return <div className="flex-1 overflow-auto pt-3">{children}</div>;
 };
 
 export default BoardListProvider;

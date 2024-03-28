@@ -1,5 +1,6 @@
 import { useGetAllBoards, useUpdatePosition } from "@/hooks/useBoardApi";
-import { FC } from "react";
+import { useSearchParams } from "next/navigation";
+import { FC, useState } from "react";
 import {
   DragDropContext,
   Draggable,
@@ -13,6 +14,9 @@ import FooterSideBar from "./components/FooterSideBar";
 import HeaderSideBar from "./components/HeaderSidebar";
 
 const SideBar: FC = () => {
+  const boardId: string = useSearchParams().get("id") || "";
+  const [activeBoard, setActiveBoard] = useState<string>(boardId);
+
   // API: get all boards
   const { data = [] } = useGetAllBoards();
 
@@ -54,8 +58,9 @@ const SideBar: FC = () => {
                         {...provided.draggableProps}
                       >
                         <BoardItem
-                          // selected={index === activeIndex}
-                          to={`/boards/${item.id}`}
+                          onClick={() => setActiveBoard(item.id)}
+                          active={activeBoard === item.id}
+                          to={`?id=${item.id}`}
                           isDragging={snapshot.isDragging}
                           item={{ ...item }}
                         />

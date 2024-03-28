@@ -24,3 +24,11 @@ export const putUpdatePosition = async (boards: BoardList) => {
   );
   return res;
 };
+
+export const getOneBoard = async (boardId: string) => {
+  const res = await axiosClient.get(
+    `/boards/${boardId}`,
+    await accessTokenConfig()
+  );
+  return res;
+};
