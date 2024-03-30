@@ -15,7 +15,7 @@ const BoardContainer = () => {
   }
   return (
     <div className="fixed right-0 top-0 bottom-0 w-4/5 bg-white h-screen p-5">
-      <BoardOverview {...data} />
+      <BoardOverview {...data} boardId={boardId} />
     </div>
   );
 };

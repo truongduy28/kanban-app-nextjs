@@ -1,4 +1,4 @@
-export interface BoardItem {
+export interface IBoardItem {
   _id: string;
   user: string;
   icon: string;
@@ -11,4 +11,10 @@ export interface BoardItem {
   id: string;
 }
 
-export type BoardList = BoardItem[];
+export type IBoardList = IBoardItem[];
+
+export interface IUpdateBoardBody {
+  title?: string;
+  description?: string;
+  favourite?: boolean;
+}

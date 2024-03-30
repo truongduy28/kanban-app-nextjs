@@ -4,7 +4,7 @@ import OverlayLoading from "@/components/Loading/OverlayLoading";
 import SlideBar from "@/components/SlideBar/SideBar";
 import { useAuth } from "@/providers/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 const HomePage = () => {
   const { isVerified, isVerifyLoading } = useAuth();
@@ -21,8 +21,10 @@ const HomePage = () => {
     <>
       {isVerifyLoading && <OverlayLoading />}
       <div className="w-full min-h-screen bg-gray-50">
-        <SlideBar />
-        <BoardContainer />
+        <Suspense>
+          <SlideBar />
+          <BoardContainer />
+        </Suspense>
       </div>
     </>
   );

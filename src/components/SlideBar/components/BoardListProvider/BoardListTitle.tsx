@@ -1,5 +1,6 @@
 import OverlayLoading from "@/components/Loading/OverlayLoading";
 import { useCreateBoard } from "@/hooks/useBoardApi";
+import { useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { BsPlusSquare } from "react-icons/bs";
 
@@ -10,14 +11,16 @@ const BoardListTitle = ({
   title: string;
   isCreateButton?: boolean;
 }) => {
+  const queryClient = useQueryClient();
   // API to create new board
   const { mutate, isPending, error } = useCreateBoard();
 
   const onBoardCreate = useCallback(() => {
     mutate(undefined, {
-      onSuccess: () => console.log("create success"),
+      onSuccess: () =>
+        queryClient.invalidateQueries({ queryKey: ["getAllBoards"] }),
     });
-  }, [mutate]);
+  }, [mutate, queryClient]);
 
   return (
     <div className="flex items-center px-5">

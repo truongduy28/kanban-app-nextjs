@@ -1,4 +1,4 @@
-import { BoardList } from "@/types/board.type";
+import { IBoardList, IUpdateBoardBody } from "@/types/board.type";
 import { axiosClient } from "@/utils/axios";
 import accessTokenConfig from "@/utils/get-token";
 
@@ -16,7 +16,7 @@ export const getAllBoards = async () => {
   return res;
 };
 
-export const putUpdatePosition = async (boards: BoardList) => {
+export const putUpdatePosition = async (boards: IBoardList) => {
   const res = await axiosClient.put(
     `/boards/`,
     { boards },
@@ -28,6 +28,39 @@ export const putUpdatePosition = async (boards: BoardList) => {
 export const getOneBoard = async (boardId: string) => {
   const res = await axiosClient.get(
     `/boards/${boardId}`,
+    await accessTokenConfig()
+  );
+  return res;
+};
+
+export const putUpdateBoard = async (
+  boardId: string,
+  body: IUpdateBoardBody
+) => {
+  const res = await axiosClient.put(
+    `/boards/${boardId}`,
+    body,
+    await accessTokenConfig()
+  );
+  return res;
+};
+
+export const putUpdateIconBoard = async (boardId: string, icon: string) => {
+  const res = await axiosClient.put(
+    `/boards/${boardId}/icon`,
+    { icon: icon },
+    await accessTokenConfig()
+  );
+  return res;
+};
+
+export const putUpdateTitleAndDescriptionBoard = async (
+  boardId: string,
+  { title, description }: IUpdateBoardBody
+) => {
+  const res = await axiosClient.put(
+    `/boards/${boardId}/overview`,
+    { title, description },
     await accessTokenConfig()
   );
   return res;
