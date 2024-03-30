@@ -1,9 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
-import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
-import { twMerge } from "tailwind-merge";
 import { useUpdateIconBoard } from "@/hooks/useBoardApi";
+import Picker from "@emoji-mart/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { FC, useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   boardId: string;
@@ -38,7 +37,10 @@ const EmojiPicker: FC<Props> = ({ icon, boardId }) => {
 
   return (
     <div className="relative w-max">
-      <p className="text-3xl cursor-pointer" onClick={showPicker}>
+      <p
+        className="text-3xl cursor-pointer drop-shadow-lg"
+        onClick={showPicker}
+      >
         {selectedEmoji}
       </p>
       <div

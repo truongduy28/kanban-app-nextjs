@@ -1,9 +1,12 @@
 import EmojiPicker from "@/components/EmojiPicker/EmojiPicker";
 import InputText from "@/components/Input/Input";
+import Textarea from "@/components/Input/TextArea";
 import { useUpdateOverviewBoard } from "@/hooks/useBoardApi";
+import { trimSpacesAndNewlines } from "@/utils/trim-spaces";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
+import { RiDeleteBin2Line } from "react-icons/ri";
 
 interface Props {
   isFavorite: boolean;
@@ -31,9 +34,11 @@ const BoardOverview: FC<Props> = ({
   useEffect(() => {
     setTitleInput(title);
     setDescriptionInput(description);
-  }, [boardId]);
+  }, [boardId, description, title]);
 
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handleChangeInput = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
     e.target.name === "title"
       ? setTitleInput(e.target.value)
       : setDescriptionInput(e.target.value);
@@ -42,8 +47,8 @@ const BoardOverview: FC<Props> = ({
   const handleOverviewUpdate = (): void => {
     mutate(
       {
-        title: titleInput,
-        description: descriptionInput,
+        title: trimSpacesAndNewlines(titleInput),
+        description: trimSpacesAndNewlines(descriptionInput),
       },
       {
         onSuccess: () => {
@@ -66,21 +71,31 @@ const BoardOverview: FC<Props> = ({
       </button>
 
       {/* Board icon and name */}
-      <div className="py-2 px-5 flex gap-3">
+      <div className="py-2 px-5 flex gap-1">
         <EmojiPicker icon={icon} boardId={boardId} />
-
-        <InputText
-          clearStyle
-          className="text-3xl font-bold outline-gray-300 w-[33vw] cursor-p"
-          value={titleInput}
-          onChange={handleChangeInput}
-          name="title"
-          onBlur={handleOverviewUpdate}
-        />
+        <div className="flex-1">
+          <InputText
+            clearStyle
+            className="text-3xl font-bold outline-gray-300 w-full px-2"
+            value={titleInput}
+            onChange={handleChangeInput}
+            name="title"
+            onBlur={handleOverviewUpdate}
+          />
+        </div>
+        <button className="w-max drop-shadow-lg">
+          <RiDeleteBin2Line color="f12b46" size={25} />
+        </button>
       </div>
       {/* Board description */}
       <div className="px-10">
-        <p className="whitespace-pre-wrap text-gray-600">{description}</p>
+        <Textarea
+          value={descriptionInput}
+          className="w-full whitespace-pre-wrap text-gray-500 outline-gray-300 px-2 font-normal"
+          name="description"
+          onChange={handleChangeInput}
+          onBlur={handleOverviewUpdate}
+        />
       </div>
 
       {/* <EmojiPicker /> */}
