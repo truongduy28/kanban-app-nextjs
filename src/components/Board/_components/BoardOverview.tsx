@@ -1,12 +1,14 @@
 import EmojiPicker from "@/components/EmojiPicker/EmojiPicker";
 import InputText from "@/components/Input/Input";
-import Textarea from "@/components/Input/TextArea";
+import Textarea from "@/components/Input/Textarea";
 import { useUpdateOverviewBoard } from "@/hooks/useBoardApi";
+import { useDialog } from "@/hooks/useDialog";
 import { trimSpacesAndNewlines } from "@/utils/trim-spaces";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { RiDeleteBin2Line } from "react-icons/ri";
+import RemoveBoardDialog from "./RemoveBoardDialog";
 
 interface Props {
   isFavorite: boolean;
@@ -27,6 +29,9 @@ const BoardOverview: FC<Props> = ({
 
   // API: to update board overview as title and description
   const { mutate } = useUpdateOverviewBoard(boardId);
+
+  const { isShowing: openRemoveDialog, toggle: toggleRemoveDialog } =
+    useDialog();
 
   const [titleInput, setTitleInput] = useState("");
   const [descriptionInput, setDescriptionInput] = useState("");
@@ -83,7 +88,7 @@ const BoardOverview: FC<Props> = ({
             onBlur={handleOverviewUpdate}
           />
         </div>
-        <button className="w-max drop-shadow-lg">
+        <button className="w-max drop-shadow-lg" onClick={toggleRemoveDialog}>
           <RiDeleteBin2Line color="f12b46" size={25} />
         </button>
       </div>
@@ -98,7 +103,9 @@ const BoardOverview: FC<Props> = ({
         />
       </div>
 
-      {/* <EmojiPicker /> */}
+      {openRemoveDialog && (
+        <RemoveBoardDialog boardId={boardId} onClose={toggleRemoveDialog} />
+      )}
     </section>
   );
 };

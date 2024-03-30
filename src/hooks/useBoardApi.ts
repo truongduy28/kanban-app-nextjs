@@ -1,4 +1,5 @@
 import {
+  deleteRemoveBoard,
   getAllBoards,
   getOneBoard,
   postCreateBoard,
@@ -53,5 +54,11 @@ export const useUpdateOverviewBoard = (id: string) => {
   return useMutation<any, any, IUpdateBoardBody>({
     mutationFn: (body: IUpdateBoardBody) =>
       putUpdateTitleAndDescriptionBoard(id, body),
+  });
+};
+
+export const useDeleteBoard = (id: string) => {
+  return useMutation<any, any, unknown>({
+    mutationFn: () => deleteRemoveBoard(id),
   });
 };

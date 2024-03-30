@@ -65,3 +65,11 @@ export const putUpdateTitleAndDescriptionBoard = async (
   );
   return res;
 };
+
+export const deleteRemoveBoard = async (boardId: string) => {
+  const res = await axiosClient.delete(
+    `/boards/${boardId}/delete`,
+    await accessTokenConfig()
+  );
+  return res;
+};
