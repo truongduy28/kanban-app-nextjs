@@ -2,6 +2,7 @@ import { useGetOneBoard } from "@/hooks/useBoardApi";
 import { useSearchParams } from "next/navigation";
 import ContainerLoading from "../Loading/BoardContainerLoading";
 import BoardOverview from "./_components/BoardOverview";
+import SectionManagers from "./_components/SectionManagers";
 
 const BoardContainer = () => {
   const boardId: string = useSearchParams().get("id") || "";
@@ -19,6 +20,7 @@ const BoardContainer = () => {
         boardId={boardId}
         isFavorite={data?.favourite as boolean}
       />
+      <SectionManagers boardId={boardId} />
     </div>
   );
 };

@@ -79,14 +79,21 @@ const BoardOverview: FC<Props> = ({
 
   return (
     <section>
-      {/* Favorite button */}
-      <button onClick={onFavoriteClick}>
-        {isFavorite ? (
-          <BsStarFill color="FFCD4B" size={23} />
-        ) : (
-          <BsStar color="FFCD4B" size={23} />
-        )}
-      </button>
+      <div className="flex justify-between items-center mb-3">
+        {/* Favorite button */}
+        <button onClick={onFavoriteClick}>
+          {isFavorite ? (
+            <BsStarFill color="FFCD4B" size={23} />
+          ) : (
+            <BsStar color="FFCD4B" size={23} />
+          )}
+        </button>
+
+        {/* Delete board button */}
+        <button className="w-max drop-shadow-lg" onClick={toggleRemoveDialog}>
+          <RiDeleteBin2Line color="f12b46" size={25} />
+        </button>
+      </div>
 
       {/* Board icon and name */}
       <div className="py-2 px-5 flex gap-1">
@@ -101,9 +108,6 @@ const BoardOverview: FC<Props> = ({
             onBlur={handleOverviewUpdate}
           />
         </div>
-        <button className="w-max drop-shadow-lg" onClick={toggleRemoveDialog}>
-          <RiDeleteBin2Line color="f12b46" size={25} />
-        </button>
       </div>
       {/* Board description */}
       <div className="px-10">

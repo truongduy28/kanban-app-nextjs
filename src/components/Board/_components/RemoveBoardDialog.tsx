@@ -2,8 +2,7 @@ import Button from "@/components/Button/Button";
 import Dialog from "@/components/Dialog/Dialog";
 import { useDeleteBoard } from "@/hooks/useBoardApi";
 import { useQueryClient } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
-import { useRouter as useGetDomain } from "next/router";
+import { useRouter } from "next/navigation";
 
 import { FC, useCallback } from "react";
 
@@ -24,6 +23,7 @@ const RemoveBoardDialog: FC<Props> = ({ onClose, boardId }) => {
       onSuccess: () => {
         route.push("/");
         queryClient.invalidateQueries({ queryKey: ["getAllBoards"] });
+        queryClient.invalidateQueries({ queryKey: ["getFavoriteBoards"] });
         onClose();
       },
     });
