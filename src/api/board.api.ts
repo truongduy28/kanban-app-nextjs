@@ -73,3 +73,32 @@ export const deleteRemoveBoard = async (boardId: string) => {
   );
   return res;
 };
+
+export const putFavoriteBoard = async (
+  boardId: string,
+  isFavorite: boolean
+) => {
+  const res = await axiosClient.put(
+    `/boards/${boardId}/favorite`,
+    { favourite: isFavorite },
+    await accessTokenConfig()
+  );
+  return res;
+};
+
+export const getFavoriteBoards = async () => {
+  const res = await axiosClient.get(
+    `/boards/favorites`,
+    await accessTokenConfig()
+  );
+  return res;
+};
+
+export const putUpdateFavoritePosition = async (boards: IBoardList) => {
+  const res = await axiosClient.put(
+    `/boards/favorites`,
+    { boards },
+    await accessTokenConfig()
+  );
+  return res;
+};

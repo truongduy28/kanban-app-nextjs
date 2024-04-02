@@ -1,14 +1,17 @@
 import {
   deleteRemoveBoard,
   getAllBoards,
+  getFavoriteBoards,
   getOneBoard,
   postCreateBoard,
+  putFavoriteBoard,
   putUpdateBoard,
+  putUpdateFavoritePosition,
   putUpdateIconBoard,
   putUpdatePosition,
   putUpdateTitleAndDescriptionBoard,
 } from "@/api/board.api";
-import { IBoardList, IUpdateBoardBody } from "@/types/board.type";
+import { IBoardItem, IBoardList, IUpdateBoardBody } from "@/types/board.type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useCreateBoard = () => {
@@ -31,7 +34,7 @@ export const useUpdatePosition = () => {
 };
 
 export const useGetOneBoard = (id: string) => {
-  return useQuery<any, any, any, string[]>({
+  return useQuery<any, any, IBoardItem, string[]>({
     queryKey: ["getOneBoard", id],
     queryFn: () => getOneBoard(id) as any,
   });
@@ -60,5 +63,24 @@ export const useUpdateOverviewBoard = (id: string) => {
 export const useDeleteBoard = (id: string) => {
   return useMutation<any, any, unknown>({
     mutationFn: () => deleteRemoveBoard(id),
+  });
+};
+
+export const useFavoriteBoard = (id: string) => {
+  return useMutation<any, any, boolean>({
+    mutationFn: (isFavorite: boolean) => putFavoriteBoard(id, isFavorite),
+  });
+};
+
+export const useGetFavoriteBoards = () => {
+  return useQuery<IBoardList, any, IBoardList, string[]>({
+    queryKey: ["getFavoriteBoards"],
+    queryFn: () => getFavoriteBoards() as any,
+  });
+};
+
+export const useUpdateFavoritePosition = () => {
+  return useMutation<any, any, IBoardList>({
+    mutationFn: (boards: IBoardList) => putUpdateFavoritePosition(boards),
   });
 };

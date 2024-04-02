@@ -1,7 +1,7 @@
 import EmojiPicker from "@/components/EmojiPicker/EmojiPicker";
 import InputText from "@/components/Input/Input";
 import Textarea from "@/components/Input/Textarea";
-import { useUpdateOverviewBoard } from "@/hooks/useBoardApi";
+import { useFavoriteBoard, useUpdateOverviewBoard } from "@/hooks/useBoardApi";
 import { useDialog } from "@/hooks/useDialog";
 import { trimSpacesAndNewlines } from "@/utils/trim-spaces";
 import { useQueryClient } from "@tanstack/react-query";
@@ -29,6 +29,9 @@ const BoardOverview: FC<Props> = ({
 
   // API: to update board overview as title and description
   const { mutate } = useUpdateOverviewBoard(boardId);
+
+  // API: add or remove to list favorite boards
+  const { mutate: favoriteMutate } = useFavoriteBoard(boardId);
 
   const { isShowing: openRemoveDialog, toggle: toggleRemoveDialog } =
     useDialog();
@@ -59,15 +62,25 @@ const BoardOverview: FC<Props> = ({
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["getOneBoard", boardId] });
           queryClient.invalidateQueries({ queryKey: ["getAllBoards"] });
+          queryClient.invalidateQueries({ queryKey: ["getFavoriteBoards"] });
         },
       }
     );
   };
 
+  const onFavoriteClick = (): void => {
+    favoriteMutate(!isFavorite, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["getOneBoard", boardId] });
+        queryClient.invalidateQueries({ queryKey: ["getFavoriteBoards"] });
+      },
+    });
+  };
+
   return (
     <section>
       {/* Favorite button */}
-      <button>
+      <button onClick={onFavoriteClick}>
         {isFavorite ? (
           <BsStarFill color="FFCD4B" size={23} />
         ) : (
