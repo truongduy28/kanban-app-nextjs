@@ -1,3 +1,5 @@
+import { ISection } from "./section.type";
+
 export interface IBoardItem {
   _id: string;
   user: string;
@@ -9,6 +11,7 @@ export interface IBoardItem {
   favouritePosition: number;
   __v: number;
   id: string;
+  sections?: ISection[];
 }
 
 export type IBoardList = IBoardItem[];

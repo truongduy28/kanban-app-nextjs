@@ -1,4 +1,5 @@
 import { useGetOneBoard } from "@/hooks/useBoardApi";
+import { ISection } from "@/types/section.type";
 import { useSearchParams } from "next/navigation";
 import ContainerLoading from "../Loading/BoardContainerLoading";
 import BoardOverview from "./_components/BoardOverview";
@@ -20,7 +21,10 @@ const BoardContainer = () => {
         boardId={boardId}
         isFavorite={data?.favourite as boolean}
       />
-      <SectionManagers boardId={boardId} />
+      <SectionManagers
+        boardId={boardId}
+        sections={data?.sections as ISection[]}
+      />
     </div>
   );
 };
