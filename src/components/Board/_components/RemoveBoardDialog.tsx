@@ -2,6 +2,9 @@ import Button from "@/components/Button/Button";
 import Dialog from "@/components/Dialog/Dialog";
 import { useDeleteBoard } from "@/hooks/useBoardApi";
 import { useQueryClient } from "@tanstack/react-query";
+import { usePathname, useRouter } from "next/navigation";
+import { useRouter as useGetDomain } from "next/router";
+
 import { FC, useCallback } from "react";
 
 interface Props {
@@ -11,6 +14,7 @@ interface Props {
 
 const RemoveBoardDialog: FC<Props> = ({ onClose, boardId }) => {
   const queryClient = useQueryClient();
+  const route = useRouter();
 
   // API: to remove a board from database
   const { mutate, isPending } = useDeleteBoard(boardId);
@@ -18,12 +22,12 @@ const RemoveBoardDialog: FC<Props> = ({ onClose, boardId }) => {
   const handleRemoveBoard = useCallback(() => {
     mutate(undefined, {
       onSuccess: () => {
+        route.push("/");
         queryClient.invalidateQueries({ queryKey: ["getAllBoards"] });
         onClose();
       },
     });
-    onClose();
-  }, [mutate, onClose, queryClient]);
+  }, [mutate, onClose, queryClient, route]);
 
   return (
     <Dialog onClose={onClose}>

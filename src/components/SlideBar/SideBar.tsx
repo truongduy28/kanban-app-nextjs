@@ -1,6 +1,6 @@
 import { useGetAllBoards, useUpdatePosition } from "@/hooks/useBoardApi";
-import { useSearchParams } from "next/navigation";
-import { FC, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FC, useEffect, useState } from "react";
 import {
   DragDropContext,
   Draggable,
@@ -15,13 +15,21 @@ import HeaderSideBar from "./components/HeaderSidebar";
 
 const SideBar: FC = () => {
   const boardId: string = useSearchParams().get("id") || "";
-  const [activeBoard, setActiveBoard] = useState<string>(boardId);
+  const route = useRouter();
+
+  const [activeBoard, setActiveBoard] = useState<string>("");
 
   // API: get all boards
   const { data = [] } = useGetAllBoards();
 
   // API: update position of boards
   const { mutate: updatePosition } = useUpdatePosition();
+
+  useEffect(() => {
+    if (data.length && !boardId) route.push(`?id=${data[0]._id}`);
+    if (data.length && boardId && boardId !== activeBoard)
+      setActiveBoard(boardId);
+  }, [activeBoard, boardId, data, route]);
 
   const onDragEnd: OnDragEndResponder = ({ source, destination }) => {
     const newList = data;
