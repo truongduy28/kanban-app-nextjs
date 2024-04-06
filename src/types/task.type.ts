@@ -16,4 +16,13 @@ export interface ITask {
   position: number;
   __v: number;
   id: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IUpdateTaskPositionBody {
+  resourceList: ITask[];
+  destinationList: ITask[];
+  resourceSectionId: string;
+  destinationSectionId: string;
 }
