@@ -1,4 +1,8 @@
-import { ICreateTaskBody, IUpdateTaskPositionBody } from "@/types/task.type";
+import {
+  ICreateTaskBody,
+  IUpdateTaskBody,
+  IUpdateTaskPositionBody,
+} from "@/types/task.type";
 import { axiosClient } from "@/utils/axios";
 import accessTokenConfig from "@/utils/get-token";
 
@@ -20,6 +24,19 @@ export const putUpdateTaskPosition = async (
 ) => {
   const res = await axiosClient.put(
     `/boards/${boardId}/tasks/update-position`,
+    body,
+    await accessTokenConfig()
+  );
+  return res;
+};
+
+export const putUpdateTask = async (
+  boardId: string,
+  taskId: string,
+  body: IUpdateTaskBody
+) => {
+  const res = await axiosClient.put(
+    `/boards/${boardId}/tasks/${taskId}`,
     body,
     await accessTokenConfig()
   );

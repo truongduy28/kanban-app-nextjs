@@ -1,5 +1,13 @@
-import { postCreateTask, putUpdateTaskPosition } from "@/api/task.api";
-import { ICreateTaskBody, IUpdateTaskPositionBody } from "@/types/task.type";
+import {
+  postCreateTask,
+  putUpdateTask,
+  putUpdateTaskPosition,
+} from "@/api/task.api";
+import {
+  ICreateTaskBody,
+  IUpdateTaskBody,
+  IUpdateTaskPositionBody,
+} from "@/types/task.type";
 import { useMutation } from "@tanstack/react-query";
 
 export const useCreateTask = (boardId: string) =>
@@ -11,4 +19,9 @@ export const useUpdateTaskPosition = (boardId: string) =>
   useMutation<any, any, IUpdateTaskPositionBody>({
     mutationFn: (body: IUpdateTaskPositionBody) =>
       putUpdateTaskPosition(boardId, body),
+  });
+
+export const useUpdateTask = (boardId: string, taskId: string) =>
+  useMutation<any, any, any>({
+    mutationFn: (body: IUpdateTaskBody) => putUpdateTask(boardId, taskId, body),
   });

@@ -1,4 +1,5 @@
 import React, { FC, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { twMerge } from "tailwind-merge";
 
 interface Props {
@@ -19,9 +20,9 @@ const Dialog: FC<Props> = ({ children, onClose, size = "md" }) => {
         return "w-1/4";
     }
   }, [size]);
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-40 bg-[#f0f0f052] backdrop-blur-[3px]"
+      className="fixed inset-0 z-40 bg-[#f0f0f052] backdrop-blur-[3px] cursor-default"
       onClick={(e) => e.currentTarget === e.target && onClose()}
     >
       <div
@@ -33,7 +34,8 @@ const Dialog: FC<Props> = ({ children, onClose, size = "md" }) => {
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

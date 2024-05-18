@@ -26,3 +26,8 @@ export interface IUpdateTaskPositionBody {
   resourceSectionId: string;
   destinationSectionId: string;
 }
+
+export interface IUpdateTaskBody {
+  title: string;
+  content: string;
+}

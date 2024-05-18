@@ -1,6 +1,7 @@
 import Section from "@/components/Section/Section";
 import Task from "@/components/Task/Task";
 import { useCreateSection } from "@/hooks/useSectionApi";
+import { useUpdateTaskPosition } from "@/hooks/useTaskApi";
 import { ISection } from "@/types/section.type";
 import { useQueryClient } from "@tanstack/react-query";
 import { FC } from "react";
@@ -20,6 +21,9 @@ const SectionManagers: FC<Props> = ({ boardId, sections = [] }) => {
 
   // API: create new section on this board
   const { mutate, isPending } = useCreateSection(boardId);
+
+  // API: update task position
+  const { mutate: updateTaskPosition } = useUpdateTaskPosition(boardId);
 
   const onSectionCreate = () => {
     mutate(undefined, {
@@ -57,7 +61,18 @@ const SectionManagers: FC<Props> = ({ boardId, sections = [] }) => {
       sections[destinationColIndex].tasks = destinationTasks;
     }
 
-    console.log("sourceSectionId", sourceSectionId);
+    updateTaskPosition(
+      {
+        resourceList: sourceTasks,
+        destinationList: destinationTasks,
+        resourceSectionId: sourceSectionId,
+        destinationSectionId: destinationSectionId,
+      },
+      {
+        onSuccess: () =>
+          queryClient.invalidateQueries({ queryKey: ["getOneBoard", boardId] }),
+      }
+    );
 
     try {
     } catch (err) {
@@ -107,7 +122,7 @@ const SectionManagers: FC<Props> = ({ boardId, sections = [] }) => {
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
                               >
-                                <Task key={index} />
+                                <Task key={index} taskData={task} />
                               </div>
                             )}
                           </Draggable>
