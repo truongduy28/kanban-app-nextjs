@@ -15,3 +15,11 @@ body {
 
 @layer utilities {
 }
+
+
+.editor-container {
+  min-height: calc(1.5em * 10); /* Assuming 1.5em is the line-height */
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+}
