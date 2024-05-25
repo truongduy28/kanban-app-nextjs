@@ -35,6 +35,7 @@ const BoardItem = forwardRef<HTMLDivElement, Props>(
       <div
         style={{ textDecoration: "none", color: "inherit" }}
         className={twMerge(
+          "py-2",
           isDragging ? "!cursor-pointer" : "cursor-grab",
           active ? "bg-gray-100" : ""
         )}
