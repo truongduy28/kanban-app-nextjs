@@ -3,6 +3,7 @@ import Dialog from "@/components/Dialog/Dialog";
 import { useDeleteTask } from "@/hooks/useTaskApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { FC, useCallback } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   onClose: () => void;
@@ -26,6 +27,7 @@ const RemoveTaskDialog: FC<Props> = ({
     mutate(undefined, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["getOneBoard", boardId] });
+        toast.success("This task has removed successfully");
         onCloseTask();
       },
     });

@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import { FC, useCallback } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   onClose: () => void;
@@ -24,6 +25,7 @@ const RemoveBoardDialog: FC<Props> = ({ onClose, boardId }) => {
         route.push("/");
         queryClient.invalidateQueries({ queryKey: ["getAllBoards"] });
         queryClient.invalidateQueries({ queryKey: ["getFavoriteBoards"] });
+        toast.success("This board has removed successfully");
         onClose();
       },
     });

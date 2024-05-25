@@ -3,6 +3,7 @@ import Dialog from "@/components/Dialog/Dialog";
 import { useRemoveSection } from "@/hooks/useSectionApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { FC, useCallback } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   onClose: () => void;
@@ -20,6 +21,7 @@ const RemoveSectionDialog: FC<Props> = ({ onClose, boardId, sectionId }) => {
     mutate(undefined, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["getOneBoard", boardId] });
+        toast.success("This section has removed successfully!!");
         onClose();
       },
     });

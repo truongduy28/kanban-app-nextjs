@@ -5,9 +5,13 @@ import InputError from "@/components/Errors/InputError";
 import InputText from "@/components/Input/Input";
 import { useSignUp } from "@/hooks/useAuthApi";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
+  const navigate = useRouter();
+
   // API sign up to create account
   const { mutate, error, isPending } = useSignUp();
 
@@ -26,6 +30,10 @@ const SignUpPage = () => {
     e.preventDefault();
     mutate(body, {
       onError: (e) => console.log(e),
+      onSuccess: () => {
+        toast.success("Sign up successfully! Login now 🚀");
+        navigate.push("/auth/login");
+      },
     });
   };
 
