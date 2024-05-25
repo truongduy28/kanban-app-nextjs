@@ -17,7 +17,9 @@ const Task: FC<Props> = ({ taskData }) => {
 
   return (
     <>
-      <div onClick={toggle}>{task?.title}</div>
+      <div onClick={toggle} className="w-full bg-white py-2 px-2 rounded-md">
+        {task?.title}
+      </div>
       {isShowing && <TaskDetailsDialog onClose={toggle} task={task as ITask} />}
     </>
   );

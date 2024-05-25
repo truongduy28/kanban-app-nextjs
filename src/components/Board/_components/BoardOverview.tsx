@@ -3,6 +3,7 @@ import InputText from "@/components/Input/Input";
 import Textarea from "@/components/Input/Textarea";
 import { useFavoriteBoard, useUpdateOverviewBoard } from "@/hooks/useBoardApi";
 import { useDialog } from "@/hooks/useDialog";
+import { useCreateSection } from "@/hooks/useSectionApi";
 import { trimSpacesAndNewlines } from "@/utils/trim-spaces";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChangeEvent, FC, useEffect, useState } from "react";
@@ -32,6 +33,9 @@ const BoardOverview: FC<Props> = ({
 
   // API: add or remove to list favorite boards
   const { mutate: favoriteMutate } = useFavoriteBoard(boardId);
+
+  // API: create new section on this board
+  const { mutate: createTaskMutate, isPending } = useCreateSection(boardId);
 
   const { isShowing: openRemoveDialog, toggle: toggleRemoveDialog } =
     useDialog();
@@ -77,8 +81,16 @@ const BoardOverview: FC<Props> = ({
     });
   };
 
+  const onSectionCreate = () => {
+    createTaskMutate(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["getOneBoard", boardId] });
+      },
+    });
+  };
+
   return (
-    <section>
+    <section className="p-5">
       <div className="flex justify-between items-center mb-3">
         {/* Favorite button */}
         <button onClick={onFavoriteClick}>
@@ -120,6 +132,15 @@ const BoardOverview: FC<Props> = ({
         />
       </div>
 
+      {/* Add section button */}
+      <div className="flex justify-between w-full">
+        <span
+          className="bg-primary-500 font-semibold mx-5 cursor-pointer hover:bg-blue-600 px-7 py-2 w-max text-sm transition-all rounded-full text-white shadow-md"
+          onClick={isPending ? undefined : onSectionCreate}
+        >
+          {isPending ? "CREATE..." : "ADD NEW SECTION"}
+        </span>
+      </div>
       {openRemoveDialog && (
         <RemoveBoardDialog boardId={boardId} onClose={toggleRemoveDialog} />
       )}

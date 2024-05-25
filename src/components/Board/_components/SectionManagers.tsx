@@ -19,19 +19,8 @@ interface Props {
 const SectionManagers: FC<Props> = ({ boardId, sections = [] }) => {
   const queryClient = useQueryClient();
 
-  // API: create new section on this board
-  const { mutate, isPending } = useCreateSection(boardId);
-
   // API: update task position
   const { mutate: updateTaskPosition } = useUpdateTaskPosition(boardId);
-
-  const onSectionCreate = () => {
-    mutate(undefined, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["getOneBoard", boardId] });
-      },
-    });
-  };
 
   const onDragEnd: OnDragEndResponder = async ({ source, destination }) => {
     if (!destination) return;
@@ -80,18 +69,9 @@ const SectionManagers: FC<Props> = ({ boardId, sections = [] }) => {
     }
   };
   return (
-    <div className="w-full">
-      {/* Add section button */}
-      <span
-        className="text-primary-500 font-semibold mx-5 cursor-pointer hover:bg-gray-50 px-7 py-2 rounded-md text-sm transition-all"
-        onClick={isPending ? undefined : onSectionCreate}
-      >
-        {isPending ? "CREATE..." : "ADD NEW SECTION"}
-      </span>
-      <hr className="h-[2px] w-full my-4" />
-
+    <div className="w-full flex-1 bg-[#f7f7f7] p-5 flex">
       {/* Sections */}
-      <div className="w-full">
+      <div className="w-full flex-1">
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="flex items-start gap-5 overflow-x-auto w-full flex-nowrap">
             {sections.map((section, i) => (

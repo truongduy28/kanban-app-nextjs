@@ -58,13 +58,13 @@ const Section: FC<Props> = ({ title, children, boardId, sectionId }) => {
   };
 
   return (
-    <div className="border py-2 px-4">
+    <div className="bg-[#7e7e7e0a] px-2 py-3 rounded-md shadow-md flex-shrink-0 mb-5">
       <div className="flex items-center gap-3">
         {/* Title */}
         <div className="flex-1">
           <InputText
             value={titleInput}
-            className="font-bold outline-gray-300 w-full px-2 py-2"
+            className="font-bold outline-gray-300 w-full px-2 py-2 bg-transparent"
             clearStyle
             onChange={(e) => setTitleInput(e.target.value)}
             onBlur={handleUpdateTitle}
@@ -83,7 +83,7 @@ const Section: FC<Props> = ({ title, children, boardId, sectionId }) => {
       </div>
 
       {/* Task list of this section  */}
-      <div>{children}</div>
+      <div className="flex flex-col gap-2 my-2">{children}</div>
 
       {openRemoveDialog && (
         <RemoveSectionDialog

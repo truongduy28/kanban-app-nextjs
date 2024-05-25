@@ -1,4 +1,5 @@
 import {
+  deleteTask,
   postCreateTask,
   putUpdateTask,
   putUpdateTaskPosition,
@@ -24,4 +25,9 @@ export const useUpdateTaskPosition = (boardId: string) =>
 export const useUpdateTask = (boardId: string, taskId: string) =>
   useMutation<any, any, any>({
     mutationFn: (body: IUpdateTaskBody) => putUpdateTask(boardId, taskId, body),
+  });
+
+export const useDeleteTask = (boardId: string, taskId: string) =>
+  useMutation<any, any, any>({
+    mutationFn: () => deleteTask(boardId, taskId),
   });

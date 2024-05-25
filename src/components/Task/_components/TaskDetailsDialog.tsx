@@ -10,8 +10,10 @@ import { ContentState, EditorState, convertFromHTML } from "draft-js";
 import { FC, useEffect, useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 
+import { useDialog } from "@/hooks/useDialog";
 import createToolbarPlugin from "@draft-js-plugins/static-toolbar";
 import { stateToHTML } from "draft-js-export-html";
+import RemoveTaskDialog from "./RemoveTaskDialog";
 
 const toolbarPlugin = createToolbarPlugin();
 const { Toolbar } = toolbarPlugin;
@@ -23,6 +25,8 @@ interface Props {
 
 const TaskDetailsDialog: FC<Props> = ({ onClose, task }) => {
   const queryClient = useQueryClient();
+  const { isShowing: openRemoveDialog, toggle: toggleRemoveDialog } =
+    useDialog();
 
   const [title, setTitle] = useState(task.title);
 
@@ -73,11 +77,18 @@ const TaskDetailsDialog: FC<Props> = ({ onClose, task }) => {
     );
   };
 
-  return (
+  return openRemoveDialog ? (
+    <RemoveTaskDialog
+      boardId={task.section.board}
+      taskId={task._id}
+      onClose={toggleRemoveDialog}
+      onCloseTask={onClose}
+    />
+  ) : (
     <Dialog onClose={onClose} size="lg">
       {/* Remove task button */}
       <div className="w-full flex justify-end">
-        <button className="w-max">
+        <button className="w-max" onClick={toggleRemoveDialog}>
           <AiOutlineDelete color="#f36d7f" size={20} />
         </button>
       </div>

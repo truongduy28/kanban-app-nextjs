@@ -42,3 +42,11 @@ export const putUpdateTask = async (
   );
   return res;
 };
+
+export const deleteTask = async (boardId: string, taskId: string) => {
+  const res = await axiosClient.delete(
+    `/boards/${boardId}/tasks/${taskId}`,
+    await accessTokenConfig()
+  );
+  return res;
+};
