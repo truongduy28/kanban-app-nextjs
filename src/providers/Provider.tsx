@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { FC } from "react";
 import { AuthProvider } from "./AuthContext";
+import SupportProvider from "./SupportProvider";
 
 interface Props {
   children: React.ReactNode;
@@ -8,9 +9,11 @@ interface Props {
 const Provider: FC<Props> = ({ children }) => {
   const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>{children}</AuthProvider>
-    </QueryClientProvider>
+    <SupportProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>{children}</AuthProvider>
+      </QueryClientProvider>
+    </SupportProvider>
   );
 };
 
