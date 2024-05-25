@@ -104,7 +104,7 @@ const SideBar: FC = () => {
             )}
           </Droppable>
         </DragDropContext>
-        <BoardListTitle title="Boards" isCreateButton />
+        <BoardListTitle title="Boards" isCreateButton className="mt-5" />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable
             key={"list-board-droppable-key"}

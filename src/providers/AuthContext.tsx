@@ -30,10 +30,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     null
   );
 
-  const signOut = () =>
+  const signOut = () => {
     localStorage.removeItem(process.env.NEXT_PUBLIC_TOKEN_KEY as string);
+    setToken(null);
+  };
 
-  const isVerified = useMemo(() => !!verifyData, [verifyData]);
+  const isVerified = useMemo(() => {
+    if (!token) return false;
+    return !!verifyData;
+  }, [verifyData, token]);
 
   const value = {
     user: token,

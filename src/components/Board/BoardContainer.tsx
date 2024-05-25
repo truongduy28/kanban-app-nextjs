@@ -3,6 +3,7 @@ import { ISection } from "@/types/section.type";
 import { useSearchParams } from "next/navigation";
 import ContainerLoading from "../Loading/BoardContainerLoading";
 import BoardOverview from "./_components/BoardOverview";
+import EmptyBoard from "./_components/EmptyBoard";
 import SectionManagers from "./_components/SectionManagers";
 
 const BoardContainer = () => {
@@ -14,8 +15,10 @@ const BoardContainer = () => {
   if (isLoading) {
     return <ContainerLoading isLoading={isLoading} error={error} />;
   }
-  return (
-    <div className="fixed right-0 top-0 bottom-0 w-4/5 bg-white h-screen p-5">
+  return !boardId ? (
+    <EmptyBoard />
+  ) : (
+    <div className="fixed right-0 top-0 bottom-0 w-4/5 bg-white h-screen flex flex-col">
       <BoardOverview
         {...(data as any)}
         boardId={boardId}

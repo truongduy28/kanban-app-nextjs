@@ -11,6 +11,7 @@ export interface IUser {
   _id: string;
   username: string;
   id: string;
+  avatar?: string;
 }
 
 export interface IAuthToken {
