@@ -1,4 +1,5 @@
 "use client";
+
 import BoardContainer from "@/components/Board/BoardContainer";
 import OverlayLoading from "@/components/Loading/OverlayLoading";
 import SlideBar from "@/components/SlideBar/SideBar";
