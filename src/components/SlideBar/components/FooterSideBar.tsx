@@ -33,7 +33,7 @@ const FooterSideBar: FC = () => {
           user?.user?.avatar ||
           "https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
         }
-        className="w-10"
+        className="w-10 h-10 object-cover rounded-full shadow-md"
       />
       <p className="flex flex-col flex-1 leading-5">
         <p>{user?.user.username}</p>
