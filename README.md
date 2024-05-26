@@ -19,8 +19,9 @@ Check out the live demo [here](https://kanban-zone-app.vercel.app).
   - [React Icons](https://react-icons.github.io/react-icons/)
 
 ## Preview 📺
+![CleanShot2024-05-26at21 37 00-converted-ezgif com-video-to-gif-converter](https://github.com/truongduy28/kanban-zone-app-nextjs/assets/88228203/7c1ffe69-9083-4fc5-9aaf-4704573d026d)
 
-![TODO App Preview](https://github.com/truongduy28/todo-app-next-js/assets/88228203/ac91a057-7a45-4123-bd4f-8a255cddb201)
+
 
 ## Features 🛠️
 
