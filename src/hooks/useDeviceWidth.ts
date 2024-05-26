@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 
+const SMALL_SCREEN_WIDTH = 992;
+
 const useDeviceWidth = () => {
-  const [width, setWidth] = useState(window.innerWidth);
-  const [isSmallScreen, setIsSmaillScreen] = useState(window.innerWidth <= 768);
+  const [width, setWidth] = useState<number | null>(null);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-      setIsSmaillScreen(window.innerWidth <= 992);
-    };
+    // Ensure this code only runs on the client
+    if (typeof window !== "undefined") {
+      const handleResize = () => {
+        setWidth(window.innerWidth);
+        setIsSmallScreen(window.innerWidth <= SMALL_SCREEN_WIDTH);
+      };
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+      // Set initial values
+      handleResize();
+
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, []);
 
   return { width, isSmallScreen };
