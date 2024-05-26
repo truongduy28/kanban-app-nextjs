@@ -9,7 +9,6 @@ import { Suspense, useEffect } from "react";
 
 const HomePage = () => {
   const { isVerified, isVerifyLoading } = useAuth();
-
   const route = useRouter();
 
   useEffect(() => {

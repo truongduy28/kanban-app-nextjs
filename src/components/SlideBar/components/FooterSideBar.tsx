@@ -35,10 +35,10 @@ const FooterSideBar: FC = () => {
         }
         className="w-10 h-10 object-cover rounded-full shadow-md"
       />
-      <p className="flex flex-col flex-1 leading-5">
+      <div className="flex flex-col flex-1 leading-5">
         <p>{user?.user.username}</p>
         <p className="text-xs text-gray-700">User of Kanban Zone app</p>
-      </p>
+      </div>
       <span className="cursor-pointer rotate-180" onClick={handleLogout}>
         <CiLogout size={25} />
       </span>

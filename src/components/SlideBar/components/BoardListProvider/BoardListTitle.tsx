@@ -1,6 +1,7 @@
 import OverlayLoading from "@/components/Loading/OverlayLoading";
 import { useCreateBoard } from "@/hooks/useBoardApi";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 import { BsPlusSquare } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
@@ -14,14 +15,18 @@ const BoardListTitle = ({
   isCreateButton?: boolean;
   className?: string;
 }) => {
+  const navigate = useRouter();
+
   const queryClient = useQueryClient();
   // API to create new board
   const { mutate, isPending, error } = useCreateBoard();
 
   const onBoardCreate = useCallback(() => {
     mutate(undefined, {
-      onSuccess: () =>
-        queryClient.invalidateQueries({ queryKey: ["getAllBoards"] }),
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({ queryKey: ["getAllBoards"] });
+        navigate.push(`/?id=${data._id}`);
+      },
     });
   }, [mutate, queryClient]);
 
