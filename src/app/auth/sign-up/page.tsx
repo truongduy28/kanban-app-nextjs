@@ -46,8 +46,8 @@ const SignUpPage = () => {
         className="space-y-4 md:space-y-6"
         onSubmit={(e) => handleSignUp(e)}
       >
-        {Object.entries(body).map(([key, value]) => (
-          <>
+        {Object.entries(body).map(([key, value], index) => (
+          <div key={index}>
             <InputText
               key={key}
               value={value}
@@ -68,7 +68,7 @@ const SignUpPage = () => {
                 msg={error.errors?.find((e) => e.param === key)?.msg as string}
               />
             )}
-          </>
+          </div>
         ))}
         <Button
           title="Sign Up"

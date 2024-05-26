@@ -10,14 +10,12 @@ import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
 function LoginPage() {
-  // API login to kanban system
-  const { mutate, error, isPending, data } = useLogin();
   const { setToken, reVerifyToken } = useAuth();
 
-  const [body, setBody] = useState({
-    username: "",
-    password: "",
-  });
+  // API login to kanban system
+  const { mutate, error, isPending } = useLogin();
+
+  const [body, setBody] = useState({ username: "", password: "" });
 
   const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,8 +41,8 @@ function LoginPage() {
         Login to use!
       </h1>
       <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
-        {Object.entries(body).map(([key, value]) => (
-          <>
+        {Object.entries(body).map(([key, value], index) => (
+          <div key={index}>
             <InputText
               key={key}
               value={value}
@@ -65,7 +63,7 @@ function LoginPage() {
                 msg={error.errors?.find((e) => e.param === key)?.msg as string}
               />
             )}
-          </>
+          </div>
         ))}
         <div className="flex items-center justify-between">
           <a
