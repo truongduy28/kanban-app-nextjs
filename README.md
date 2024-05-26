@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Kanban App 🚀
+
+A Kanban board application built with Next.js 13, TypeScript, and React-Query. This app allows users to register, log in, create boards, sections within those boards, and tasks within those sections. Users can also drag and drop tasks to manage their workflow effectively.
+
+## Live Demo 🚀
+
+Check out the live demo [here](https://kanban-zone-app.vercel.app).
+
+## Tech Stack 💻
+
+- **Framework:** [Next.js 13](https://nextjs.org/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **State Management:** [React-Query](https://react-query.tanstack.com/)
+- **UI Components:** [React Beautiful DnD](https://github.com/atlassian/react-beautiful-dnd), [Tailwind CSS](https://tailwindcss.com/)
+- **HTTP Client:** [Axios](https://axios-http.com/)
+- **Other Libraries:**
+  - [Draft.js](https://draftjs.org/)
+  - [React Hot Toast](https://react-hot-toast.com/)
+  - [React Icons](https://react-icons.github.io/react-icons/)
+
+## Preview 📺
+
+![TODO App Preview](https://github.com/truongduy28/todo-app-next-js/assets/88228203/ac91a057-7a45-4123-bd4f-8a255cddb201)
+
+## Features 🛠️
+
+1. **Register:** Users can create an account.
+2. **Login:** Users can log into their account.
+3. **Create Board:** Users can create a new board.
+4. **Create Section:** Users can create sections within a board.
+5. **Create Task:** Users can add tasks to a section.
+6. **Drag & Drop:** Users can drag and drop tasks between sections.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js and npm (or yarn) installed on your machine.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage 🛠️
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   git clone https://github.com/truongduy28/kanban-zone-app-nextjs.git
 
-## Learn More
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Navigate to the project directory:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   cd kanban-zone-app
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```
 
-## Deploy on Vercel
+3. Replace the value of the variable in your .env.local file with your actual variable.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Install dependencies:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```bash
+   yarn install
+
+   ```
+
+5. Start the application:
+   ```bash
+   yarn start
+   ```
+
+Feel free to contribute, report issues, or suggest improvements. Happy coding! 🚀
+
+## Contributing ✊
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License 📖
+
+Distributed under the MIT License. See `LICENSE` for more information.
